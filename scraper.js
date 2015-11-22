@@ -1,5 +1,6 @@
 var scraperFunctions = {
   resumeScraper: function () {
+    console.log('scrapping');
   //  console.log(test);
     var resume={}
     //remove that annoying IT guy
@@ -14,10 +15,15 @@ var scraperFunctions = {
     var experienceArray =[]
 
 
-    $('div[data-category=experience]').each(function (index, exp) {
+    //all experinces divs
+    $('div[data-category=experience][class=child]').each(function (index, exp) {
       var singleExperience = {}
-      
-    }
+      console.log('experience?? ', exp);
+      var jobTitle = exp.children('.sub-title').text()
+      var jobDescription = exp.children('.html-content').text();
+      singleExperience[jobTitle] = jobDescription
+      experienceArray.push(singleExperience)
+    })
 
 
       //other is multiple boxes, will probably be an each loop
@@ -27,7 +33,7 @@ var scraperFunctions = {
     resume.summary={
        jobTitle: other
     }
-    resume.experience = experience;
+    resume.experiences = experienceArray
     resume.education = education;
 
 
