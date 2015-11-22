@@ -65,26 +65,35 @@ phantom.create(function (ph) {
 
         // do stuff on that page:
         page.evaluate(function () {
-          //find one link
-          var link ='http://www.super-resume.com'+ $('.resume').eq(0).children().attr('href');
+          var resumesArray=[];
+          //for ecah resume in the sidebar...
+          $('.resume').each(function (index, resumeBox) {
+
+          //...find its link
+          // make an array of links 
+          var link ='http://www.super-resume.com'+ resumeBox.children().attr('href');
           return link
+          console.log(link);
 
         }, function (result) {
           console.log('heres a link', result);
-
+          //go to that page...
           page.open(result, function (status) {
             console.log("opened resume? ", status);
             //  add in (if status= fail option)
                 var test = 'this is a test'
+                //scrape it
                 page.evaluate(Scraper.resumeScraper
                 , function (result) {
                     console.log(test);
                     console.log('Heres one resume' + result);
-                  
-                    res.send(result)
+                    resumesArray.push(result)
+
+
                 });
           })
-
+        }) //end of forEach, start of callback hell
+          res.send(resumesArray)
           ph.exit
         })
 
