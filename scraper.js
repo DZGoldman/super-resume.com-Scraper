@@ -15,7 +15,8 @@ var scraperFunctions = {
 
 
     $('div[data-category=experience]').each(function (index, exp) {
-      console.log(exp);
+      var singleExperience = {}
+      
     }
 
 
