@@ -75,12 +75,15 @@ phantom.create(function (ph) {
           page.open(result, function (status) {
             console.log("opened resume? ", status);
             //  add in (if status= fail option)
-                var test = 'this is a test'
+                var test = 'this is a test';
+                //get rid of IT guy:
+                
+
                 page.evaluate(Scraper.resumeScraper
                 , function (result) {
                     console.log(test);
                     console.log('Heres one resume' + result);
-                  
+
                     res.send(result)
                 });
           })

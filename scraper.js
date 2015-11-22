@@ -17,9 +17,12 @@ var scraperFunctions = {
     var other = $('.block[data-category=text]').text();
     resume.other = other
 
+    resume.summary={
+       jobTitle: other
+    }
     resume.experience = experience;
     resume.education = education;
-    resume.job_title = jobTitle;
+    
 
      return resume
 
