@@ -53,52 +53,60 @@ var phantom = require('phantom');
 //     });
 // });
 
-//var scraper = require('./scraper.js')
+var Scraper = require('./scraper.js')
 app.get('/', function (req, res) {
 
 
 phantom.create(function (ph) {
     ph.createPage(function (page) {
-        page.open("http://www.super-resume.com/ResumeBuilder.jtp?resume=1881584", function (status) {
+      //go the comp. programmer page
+      page.open('http://www.super-resume.com/ResumeBuilder.jtp?query=Computer+Programmer', function (status) {
+        console.log('at the programmers page?', status);
+
+        // do stuff on that page:
+        page.evaluate(function () {
+          //find one link
+          var link ='http://www.super-resume.com'+ $('.resume').eq(0).children().attr('href');
+          return link
+
+        }, function (result) {
+          console.log('heres a link', result);
+
+          page.open(result, function (status) {
             console.log("opened resume? ", status);
-            // add in (if status= fail option)
+            //  add in (if status= fail option)
+                var test = 'this is a test'
+                page.evaluate(Scraper.resumeScraper
+                , function (result) {
+                    console.log(test);
+                    console.log('Heres one resume' + result);
+                  
+                    res.send(result)
+                });
+          })
 
-            var test = 'this is a test'
-
-            page.evaluate(function () {
-            //  console.log(test);
-              var resume={}
-              //remove that annoying IT guy
-              if ( $('.papersheet-inner').length>2)  {
-                $('.papersheet-inner').last().remove()
-              }
-              var jobTitle = $('.person').children('.jobtitle').text();
-
-              //for now, puts education in as one big string. education should proably be an array of objects
-              var education = $('.block[data-category=education]').text();
-
-              var experience = $('.block[data-category=experience]').text();
-
-                //other is multiple boxes, will probably be an each loop
-              var other = $('.block[data-category=text]').text();
-              resume.other = other
-
-              resume.experience = experience;
-              resume.education = education;
-                resume.job_title = jobTitle;
-
-               return resume
+          ph.exit
+        })
 
 
-
-             }, function (result) {
-                console.log(test);
-                console.log('Heres one resume' + result);
-                ph.exit();
-                res.send(result)
-            });
-        });
-    });
+      // ph.createPage(function (page) {
+      //     page.open("http://www.super-resume.com/ResumeBuilder.jtp?resume=1881584", function (status) {
+      //         console.log("opened resume? ", status);
+      //         // add in (if status= fail option)
+      //
+      //         var test = 'this is a test'
+      //
+      //         page.evaluate(Scraper.resumeScraper
+      //         , function (result) {
+      //             console.log(test);
+      //             console.log('Heres one resume' + result);
+      //             ph.exit();
+      //             res.send(result)
+      //         });
+      //     });
+      // });
+      })
+   })
 });
 
 
