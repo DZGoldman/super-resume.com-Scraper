@@ -11,7 +11,13 @@ var scraperFunctions = {
     //for now, puts education in as one big string. education should proably be an array of objects
     var education = $('.block[data-category=education]').text();
 
-    var experience = $('.block[data-category=experience]').text();
+    var experienceArray =[]
+
+
+    $('div[data-category=experience]').each(function (index, exp) {
+      console.log(exp);
+    }
+
 
       //other is multiple boxes, will probably be an each loop
     var other = $('.block[data-category=text]').text();
@@ -22,7 +28,7 @@ var scraperFunctions = {
     }
     resume.experience = experience;
     resume.education = education;
-    
+
 
      return resume
 
