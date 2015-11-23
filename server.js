@@ -71,12 +71,12 @@ phantom.create(function (ph) {
 
         }, function (result) {
           console.log('heres a link', result);
-
+          //go to that page
           page.open(result, function (status) {
             console.log("opened resume? ", status);
             //  add in (if status= fail option)
                 var test = 'this is a test';
-                //get rid of IT guy:
+
 
                 page.onConsoleMessage = function(msg) {
                 console.log(msg);
