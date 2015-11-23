@@ -66,7 +66,7 @@ phantom.create(function (ph) {
         // do stuff on that page:
         page.evaluate(function () {
           //find one link
-          var link ='http://www.super-resume.com'+ $('.resume').eq(0).children().attr('href');
+          var link ='http://www.super-resume.com'+ $('.resume').eq(19).children().attr('href');
           return link
 
         }, function (result) {
@@ -77,8 +77,10 @@ phantom.create(function (ph) {
             //  add in (if status= fail option)
                 var test = 'this is a test';
                 //get rid of IT guy:
-                
 
+                page.onConsoleMessage = function(msg) {
+                console.log(msg);
+            };
                 page.evaluate(Scraper.resumeScraper
                 , function (result) {
                     console.log(test);

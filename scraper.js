@@ -1,40 +1,64 @@
 var scraperFunctions = {
   resumeScraper: function () {
-    console.log('scrapping');
+
+
   //  console.log(test);
     var resume={}
     //remove that annoying IT guy
     if ( $('.papersheet-inner').length>2)  {
       $('.papersheet-inner').last().remove()
     }
-    var jobTitle = $('.person').children('.jobtitle').text();
 
+
+    var educationArray = [];
     //for now, puts education in as one big string. education should proably be an array of objects
-    var education = $('.block[data-category=education]').text();
+    $("[data-id^='2c']").each(function (index, eduDiv) {
+      $eduDiv = $(eduDiv)
+      var educationObject = {};
 
-    var experienceArray =[]
+      var degree = $eduDiv.children('.sub-title').text();
+      educationObject.degree = degree;
 
+      var school =  $eduDiv.children('.sub-where').text();
+      educationObject.school = school
 
-    //all experinces divs
-    $('div[data-category=experience][class=child]').each(function (index, exp) {
-      var singleExperience = {}
-      console.log('experience?? ', exp);
-      var jobTitle = exp.children('.sub-title').text()
-      var jobDescription = exp.children('.html-content').text();
-      singleExperience[jobTitle] = jobDescription
-      experienceArray.push(singleExperience)
+      educationArray.push(educationObject)
+
     })
 
+    var experienceArray =[]
+    //all experinces divs
+      $("[data-id^='1c']").each(function (index, expDiv) {
+        $expDiv = $(expDiv)
+      var experienceObject = {}
+      var jobTitle = $expDiv.children('.sub-title').text()
+      experienceObject.jobtitle= jobTitle;
 
+      var jobDescription = $expDiv.children('.html-content').text();
+      experienceObject.jobdescription= jobDescription;
+
+      experienceArray.push(experienceObject)
+    })
+
+    var jobTitle = $('.person').children('.jobtitle').text();
       //other is multiple boxes, will probably be an each loop
-    var other = $('.block[data-category=text]').text();
-    resume.other = other
+    var infoArray = [];
 
-    resume.summary={
-       jobTitle: other
-    }
+    $('[data-category=text][class=block]').children('.block-inner').children('.html-content').each(function (index, infoDiv) {
+      $infoDiv = $(infoDiv);
+      infoArray.push($infoDiv.text())
+
+    })
+
+    var summaryObject= {};
+    summaryObject.jobtitle = jobTitle;
+    summaryObject.Info = infoArray
+
+
+    resume.summary=summaryObject;
+
     resume.experiences = experienceArray
-    resume.education = education;
+    resume.education = educationArray;
 
 
      return resume
