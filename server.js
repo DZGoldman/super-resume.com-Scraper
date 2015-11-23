@@ -65,22 +65,19 @@ phantom.create(function (ph) {
 
         // do stuff on that page:
         page.evaluate(function () {
-          //find one link
-          var link ='http://www.super-resume.com'+ $('.resume').eq(19).children().attr('href');
+          //find all links in sidebar, 20 for now!
+          var links = $("a[href^='/ResumeB']")
+          var link ='http://www.super-resume.com'+ links.eq(2).attr('href');
           return link
 
         }, function (result) {
-          console.log('heres a link', result);
+          console.log('heres one the links', result);
           //go to that page
           page.open(result, function (status) {
             console.log("opened resume? ", status);
             //  add in (if status= fail option)
                 var test = 'this is a test';
 
-
-                page.onConsoleMessage = function(msg) {
-                console.log(msg);
-            };
                 page.evaluate(Scraper.resumeScraper
                 , function (result) {
                     console.log(test);
