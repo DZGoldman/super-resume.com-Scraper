@@ -67,13 +67,20 @@ phantom.create(function (ph) {
         page.evaluate(function () {
           //find all links in sidebar, 20 for now!
           var links = $("a[href^='/ResumeB']")
-          var link ='http://www.super-resume.com'+ links.eq(2).attr('href');
-          return link
+          //create a string array of all the links
+          var linksArray=[];
+            $("a[href^='/ResumeB']").each(function(index, linkDiv){
+              $linkDiv= $(linkDiv)
+              linksArray.push('http://www.super-resume.com'+$linkDiv.attr('href'))
+            });
+            //send it out
+          return linksArray
 
         }, function (result) {
-          console.log('heres one the links', result);
+          console.log('all links are in!');
           //go to that page
-          page.open(result, function (status) {
+
+          page.open(result[6], function (status) {
             console.log("opened resume? ", status);
             //  add in (if status= fail option)
                 var test = 'this is a test';
