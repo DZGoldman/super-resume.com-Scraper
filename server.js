@@ -60,13 +60,13 @@ app.get('/', function (req, res) {
 phantom.create(function (ph) {
     ph.createPage(function (page) {
       //go the comp. programmer page
-      page.open('http://www.super-resume.com/ResumeBuilder.jtp?query=Computer+Programmer', function (status) {
+      page.open('http://www.super-resume.com/ResumeBuilder.jtp?query=Database+Administrator', function (status) {
         console.log('at the programmers page?', status);
 
         // do stuff on that page:
         page.evaluate(function () {
           //find one link
-          var link ='http://www.super-resume.com'+ $('.resume').eq(19).children().attr('href');
+          var link ='http://www.super-resume.com'+ $('.resume').eq(12).children().attr('href');
           return link
 
         }, function (result) {
