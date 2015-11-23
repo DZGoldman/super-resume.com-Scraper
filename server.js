@@ -77,27 +77,35 @@ phantom.create(function (ph) {
           return linksArray
 
         }, function (result) {
+
           console.log('all links are in!');
-          //go to that page
 
-          page.open(result[6], function (status) {
-            console.log("opened resume? ", status);
-            //  add in (if status= fail option)
-                var test = 'this is a test';
+          var resumesArray = ['test?']
 
-                page.evaluate(Scraper.resumeScraper
-                , function (result) {
-                    console.log(test);
-                    console.log('Heres one resume' + result);
+          result.forEach(function (link, index) {
 
-                    res.send(result)
-                });
+            console.log(link);
+            //good up until here
+            page.open(link, function (status) {
+              console.log("opened resume? ", status);
+              if (status !== 'success') {
+               console.log('Unable to load the resume, bro!');
+               ph.exit();
+              }
+                    //  add in (if status= fail option)
+              page.evaluate(Scraper.resumeScraper,function (result){
+                console.log('Heres one resume' + result);
+                resumesArray.push(result)
+              });
+            })
+
           })
 
-          ph.exit
+
+          res.send(resumesArray)
         })
 
-
+            ph.exit
       // ph.createPage(function (page) {
       //     page.open("http://www.super-resume.com/ResumeBuilder.jtp?resume=1881584", function (status) {
       //         console.log("opened resume? ", status);
