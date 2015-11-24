@@ -15,6 +15,74 @@ var express = require('express'),
       console.log("this servers a runnin' on port 3000")
     });
 
+
+var phantom = require('phantom');
+
+
+
+var Scraper = require('./scraper.js')
+app.get('/', function (req, res) {
+
+
+phantom.create(function (ph) {
+    ph.createPage(function (page) {
+      //go the comp. programmer page
+      page.open('http://www.super-resume.com/ResumeBuilder.jtp?query=Computer+Programmer', function (status) {
+        console.log('at the programmers page?', status);
+
+        // do stuff on that page:
+        page.evaluate(function () {
+          //find all links in sidebar, 20 for now!
+          var links = $("a[href^='/ResumeB']")
+          //create an array of string of all of all the links
+          var linksArray=[];
+            $("a[href^='/ResumeB']").each(function(index, linkDiv){
+              $linkDiv= $(linkDiv)
+              linksArray.push('http://www.super-resume.com'+$linkDiv.attr('href'))
+            });
+            //send it out of the eval sandbox
+          return linksArray
+
+        }, function (result) {
+
+          console.log('all links are in!');
+
+          var resumesArray = ['test?']
+
+          result.forEach(function (link, index) {
+
+            console.log(link);
+            //good up until here- the links do indeed get passed in
+            //attempt to open each link and scrape
+            page.open(link, function (status) {
+              console.log("opened resume? ", status);
+              if (status !== 'success') {
+               console.log('Unable to load the resume, bro!');
+               ph.exit();
+              }
+                    //  add in (if status= fail option)
+              page.evaluate(Scraper.resumeScraper,function (result){
+                console.log('Heres one resume' + result);
+                resumesArray.push(result)
+              });
+            })
+
+          })
+
+
+          res.send(resumesArray)
+        })
+
+            ph.exit
+
+      })
+   })
+});
+
+
+}) // end of get
+
+
 // app.get('/', function (req, res) {
 //   request('http://www.super-resume.com/ResumeBuilder.jtp?resume=1881584', function (error, response, html) {
 //     if (!error && response.statusCode == 200) {
@@ -36,7 +104,24 @@ var express = require('express'),
 //       res.send(html)
 //   })
 // })
-var phantom = require('phantom');
+
+// ph.createPage(function (page) {
+//     page.open("http://www.super-resume.com/ResumeBuilder.jtp?resume=1881584", function (status) {
+//         console.log("opened resume? ", status);
+//         // add in (if status= fail option)
+//
+//         var test = 'this is a test'
+//
+//         page.evaluate(Scraper.resumeScraper
+//         , function (result) {
+//             console.log(test);
+//             console.log('Heres one resume' + result);
+//             ph.exit();
+//             res.send(result)
+//         });
+//     });
+// });
+
 
 
 // phantom.create(function (ph) {
@@ -52,79 +137,3 @@ var phantom = require('phantom');
 //         });
 //     });
 // });
-
-var Scraper = require('./scraper.js')
-app.get('/', function (req, res) {
-
-
-phantom.create(function (ph) {
-    ph.createPage(function (page) {
-      //go the comp. programmer page
-      page.open('http://www.super-resume.com/ResumeBuilder.jtp?query=Computer+Programmer', function (status) {
-        console.log('at the programmers page?', status);
-
-        // do stuff on that page:
-        page.evaluate(function () {
-          //find all links in sidebar, 20 for now!
-          var links = $("a[href^='/ResumeB']")
-          //create a string array of all the links
-          var linksArray=[];
-            $("a[href^='/ResumeB']").each(function(index, linkDiv){
-              $linkDiv= $(linkDiv)
-              linksArray.push('http://www.super-resume.com'+$linkDiv.attr('href'))
-            });
-            //send it out
-          return linksArray
-
-        }, function (result) {
-
-          console.log('all links are in!');
-
-          var resumesArray = ['test?']
-
-          result.forEach(function (link, index) {
-
-            console.log(link);
-            //good up until here
-            page.open(link, function (status) {
-              console.log("opened resume? ", status);
-              if (status !== 'success') {
-               console.log('Unable to load the resume, bro!');
-               ph.exit();
-              }
-                    //  add in (if status= fail option)
-              page.evaluate(Scraper.resumeScraper,function (result){
-                console.log('Heres one resume' + result);
-                resumesArray.push(result)
-              });
-            })
-
-          })
-
-
-          res.send(resumesArray)
-        })
-
-            ph.exit
-      // ph.createPage(function (page) {
-      //     page.open("http://www.super-resume.com/ResumeBuilder.jtp?resume=1881584", function (status) {
-      //         console.log("opened resume? ", status);
-      //         // add in (if status= fail option)
-      //
-      //         var test = 'this is a test'
-      //
-      //         page.evaluate(Scraper.resumeScraper
-      //         , function (result) {
-      //             console.log(test);
-      //             console.log('Heres one resume' + result);
-      //             ph.exit();
-      //             res.send(result)
-      //         });
-      //     });
-      // });
-      })
-   })
-});
-
-
-}) // end of get
