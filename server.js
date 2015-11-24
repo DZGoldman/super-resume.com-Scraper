@@ -27,7 +27,7 @@ app.get('/', function (req, res) {
 phantom.create(function (ph) {
     ph.createPage(function (page) {
       //go the comp. programmer page
-      page.open('http://www.super-resume.com/ResumeBuilder.jtp?query=Database+Administrator', function (status) {
+      page.open('http://www.super-resume.com/ResumeBuilder.jtp?query=Computer+Support+Specialist', function (status) {
         console.log('at the programmers page?', status);
 
         // do stuff on that page:
