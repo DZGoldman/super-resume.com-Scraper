@@ -51,6 +51,11 @@ casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Database+Ad
       if (index == allLinks.length-1) {
         console.log('you scrapped', resumesArray.length, 'resumes');
 
+
+
+
+
+
       }
     });
   })
