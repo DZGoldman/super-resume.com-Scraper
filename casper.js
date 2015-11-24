@@ -1,4 +1,5 @@
 var casper = require("casper").create({
+var Scraper = require('./scraper.js')
 
 });
 
