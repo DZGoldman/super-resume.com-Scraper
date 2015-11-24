@@ -5,7 +5,7 @@ var Scraper = require('./scraper.js')
 
 casper.start('http://www.super-resume.com/resume-examples/', function() {
   //this.echo(this.getTitle());
-  console.log('hello,dave');
+  console.log('hello, dave');
 });
 
 
