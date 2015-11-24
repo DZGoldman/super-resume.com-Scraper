@@ -37,18 +37,26 @@ casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Computer+Sy
 casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Database+Administrator', function() {
   allLinks = allLinks.concat(casper.evaluate(getAllLinks));
   console.log(allLinks.length);
-  casper.thenOpen('http://www.google.com', function () {
-      this.echo(this.getTitle());
+
+  var resumesArray = []
+  allLinks.forEach(function (link, index) {
+    casper.thenOpen('link', function() {
+      var resume = casper.evaluate(Scraper.resumeScraper);
+      resumesArray.push(resume);
+      console.log('yo thats scrapped')
+
+      if (index == allLinks.length-1) {
+        console.log('you scrapped', resumesArray.length, 'resumes');
+        console.log(resumesArray);
+      }
+    });
   })
+
+
 });
 
 
 
-var resumesArray = []
-casper.thenOpen('allLinks[0]', function() {
-  var resume = casper.evaluate(Scraper.resumeScraper);
-  resumesArray.push(resume);
-  //console.log(resumesArray[0])
-});
+
 
 casper.run();
