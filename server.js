@@ -15,6 +15,92 @@ var express = require('express'),
       console.log("this servers a runnin' on port 3000")
     });
 
+var phantom = require('phantom');
+
+
+
+
+var Scraper = require('./scraper.js')
+app.get('/', function (req, res) {
+
+
+phantom.create(function (ph) {
+    ph.createPage(function (page) {
+      //go the comp. programmer page
+      page.open('http://www.super-resume.com/ResumeBuilder.jtp?query=Database+Administrator', function (status) {
+        console.log('at the programmers page?', status);
+
+        // do stuff on that page:
+        page.evaluate(function () {
+          //find one link (eq index picks the link, for now 0 through 20 returns a resume)
+          var link ='http://www.super-resume.com'+ $('.resume').eq(12).children().attr('href');
+          return link
+
+        }, function (result) {
+          console.log('heres a link', result);
+          //go to that page
+          page.open(result, function (status) {
+            console.log("opened resume? ", status);
+            //  add in (if status= fail option)
+                var test = 'this is a test';
+
+
+                page.onConsoleMessage = function(msg) {
+                console.log(msg);
+            };
+            //scrape it
+                page.evaluate(Scraper.resumeScraper
+                , function (result) {
+                    console.log(test);
+                    console.log('Heres one resume' + result);
+                    //send object to the browser
+                    res.send(result)
+                });
+          })
+
+          ph.exit
+        })
+
+
+
+      })
+   })
+});
+
+
+}) // end of get
+
+// phantom.create(function (ph) {
+//     ph.createPage(function (page) {
+//         page.open("http://www.google.com", function (status) {
+//             console.log("opened google? ", status);
+//             page.evaluate(function () {
+//                return document.title;
+//              }, function (result) {
+//                 console.log('Page a  title is ' + result);
+//                 ph.exit();
+//             });
+//         });
+//     });
+// });
+// ph.createPage(function (page) {
+//     page.open("http://www.super-resume.com/ResumeBuilder.jtp?resume=1881584", function (status) {
+//         console.log("opened resume? ", status);
+//         // add in (if status= fail option)
+//
+//         var test = 'this is a test'
+//
+//         page.evaluate(Scraper.resumeScraper
+//         , function (result) {
+//             console.log(test);
+//             console.log('Heres one resume' + result);
+//             ph.exit();
+//             res.send(result)
+//         });
+//     });
+// });
+
+
 // app.get('/', function (req, res) {
 //   request('http://www.super-resume.com/ResumeBuilder.jtp?resume=1881584', function (error, response, html) {
 //     if (!error && response.statusCode == 200) {
@@ -36,83 +122,3 @@ var express = require('express'),
 //       res.send(html)
 //   })
 // })
-var phantom = require('phantom');
-
-
-// phantom.create(function (ph) {
-//     ph.createPage(function (page) {
-//         page.open("http://www.google.com", function (status) {
-//             console.log("opened google? ", status);
-//             page.evaluate(function () {
-//                return document.title;
-//              }, function (result) {
-//                 console.log('Page a  title is ' + result);
-//                 ph.exit();
-//             });
-//         });
-//     });
-// });
-
-var Scraper = require('./scraper.js')
-app.get('/', function (req, res) {
-
-
-phantom.create(function (ph) {
-    ph.createPage(function (page) {
-      //go the comp. programmer page
-      page.open('http://www.super-resume.com/ResumeBuilder.jtp?query=Database+Administrator', function (status) {
-        console.log('at the programmers page?', status);
-
-        // do stuff on that page:
-        page.evaluate(function () {
-          //find one link
-          var link ='http://www.super-resume.com'+ $('.resume').eq(12).children().attr('href');
-          return link
-
-        }, function (result) {
-          console.log('heres a link', result);
-          //go to that page
-          page.open(result, function (status) {
-            console.log("opened resume? ", status);
-            //  add in (if status= fail option)
-                var test = 'this is a test';
-
-
-                page.onConsoleMessage = function(msg) {
-                console.log(msg);
-            };
-                page.evaluate(Scraper.resumeScraper
-                , function (result) {
-                    console.log(test);
-                    console.log('Heres one resume' + result);
-
-                    res.send(result)
-                });
-          })
-
-          ph.exit
-        })
-
-
-      // ph.createPage(function (page) {
-      //     page.open("http://www.super-resume.com/ResumeBuilder.jtp?resume=1881584", function (status) {
-      //         console.log("opened resume? ", status);
-      //         // add in (if status= fail option)
-      //
-      //         var test = 'this is a test'
-      //
-      //         page.evaluate(Scraper.resumeScraper
-      //         , function (result) {
-      //             console.log(test);
-      //             console.log('Heres one resume' + result);
-      //             ph.exit();
-      //             res.send(result)
-      //         });
-      //     });
-      // });
-      })
-   })
-});
-
-
-}) // end of get
