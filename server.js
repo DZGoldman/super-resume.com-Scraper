@@ -19,7 +19,7 @@ var phantom = require('phantom');
 
 
 
-var casper = require('casper').create();
+var spo = require('spooky').create();
 var Scraper = require('./scraper.js')
 app.get('/', function (req, res) {
 

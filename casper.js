@@ -40,16 +40,17 @@ casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Database+Ad
 
   var resumesArray = []
   allLinks.forEach(function (link, index) {
-    casper.thenOpen('link', function() {
+    casper.thenOpen(link, function() {
       var resume = casper.evaluate(Scraper.resumeScraper);
       resumesArray.push(resume);
-      console.log('yo thats scrapped')
+      console.log( resume.title, '.....yo thats scraped')
+
+
 
 
       if (index == allLinks.length-1) {
         console.log('you scrapped', resumesArray.length, 'resumes');
 
-        console.log(resumesArray);
       }
     });
   })
