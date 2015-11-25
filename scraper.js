@@ -5,7 +5,8 @@ var scraperFunctions = {
     var cleanUp=function (str) {
       var cleanStr
       cleanStr= str.toLowerCase();
-      cleanStr = cleanStr.replace(/['"]+/g, '')
+      cleanStr = cleanStr.replace(/['"]+/g, '');
+      cleanStr = cleanStr.trim();
       return cleanStr
     }
 
