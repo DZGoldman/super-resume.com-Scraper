@@ -66,7 +66,7 @@ app.get('/', function (req, res) {
         console.log('yo thats scrapped')
 
         if (index == allLinks.length-1) {
-          console.log('you scrapped', resumesArray.length, 'resumes');
+          console.log('you scraped', resumesArray.length, 'resumes');
           console.log(resumesArray);
           res.send(resumesArray)
         }
