@@ -5,7 +5,6 @@ var Scraper = require('./scraper.js')
 
 casper.start('http://www.super-resume.com/resume-examples/', function() {
   //this.echo(this.getTitle());
-  console.log('hello, dave');
 });
 
 //function that gets all of the links on a given page
@@ -35,22 +34,23 @@ casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Computer+Sy
 });
 casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Database+Administrator', function() {
   allLinks = allLinks.concat(casper.evaluate(getAllLinks));
-  console.log(allLinks.length);
 
   var resumesArray = []
+  console.log('[');
   allLinks.forEach(function (link, index) {
     casper.thenOpen(link, function() {
+      console.log('{');
       var resume = casper.evaluate(Scraper.resumeScraper);
       resumesArray.push(resume);
-      console.log( resume.title, '.....yo thats scraped')
 
       if (index == allLinks.length-1) {
-        console.log('you scrapped', resumesArray.length, 'resumes');
-
+        console.log('}');
+      }else {
+        console.log('},');
       }
     });
   })
-
+  console.log(']');
 });
 
 casper.run();
