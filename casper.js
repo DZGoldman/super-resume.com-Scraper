@@ -8,7 +8,6 @@ casper.start('http://www.super-resume.com/resume-examples/', function() {
   console.log('hello, dave');
 });
 
-
 //function that gets all of the links on a given page
 var getAllLinks = function() {
   //NOTE: can we scroll down before grabbing?
@@ -45,26 +44,13 @@ casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Database+Ad
       resumesArray.push(resume);
       console.log( resume.title, '.....yo thats scraped')
 
-
-
-
       if (index == allLinks.length-1) {
         console.log('you scrapped', resumesArray.length, 'resumes');
-
-
-
-
-
 
       }
     });
   })
 
-
 });
-
-
-
-
 
 casper.run();
