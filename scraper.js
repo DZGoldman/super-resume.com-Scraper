@@ -5,9 +5,7 @@ var scraperFunctions = {
     var cleanUp=function (str) {
       var cleanStr
       cleanStr= str.toLowerCase();
-      //TODO: remove single and double quotes
-      //cleanStr.replace()
-      //cleanStr.replace()
+      cleanStr = cleanStr.replace(/['"]+/g, '')
       return cleanStr
     }
 
@@ -43,10 +41,10 @@ var scraperFunctions = {
     resume.title = jobTitle;
     resume.experiences = experienceArray
 
-    //NOTE: does that single quote thing work?
-    console.log('title:', "'"+resume.title+ "',");
-    console.log('summary:', "'"+resume.summary+"',");
-    console.log('experiences:', "'"+resume.experiences+"',");
+    // //NOTE: does that single quote thing work? these are in the wrong scope
+    // console.log('title:', "'"+resume.title+ "',");
+    // console.log('summary:', "'"+resume.summary+"',");
+    // console.log('experiences:', "'"+resume.experiences+"',");
 
      return resume
    }
