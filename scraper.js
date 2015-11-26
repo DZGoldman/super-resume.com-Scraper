@@ -12,7 +12,7 @@ var scraperFunctions = {
       cleanStr = cleanStr.replace(/  /g, '');
       //remove slashes
       cleanStr = cleanStr.replace(/\\/g, '');
-      cleanStr = cleanStr.replace("\\", "");
+      cleanStr=cleanStr.replace(/\//g, '')
 
 
       return cleanStr
@@ -40,7 +40,8 @@ var scraperFunctions = {
     //grab all 'text blocks' (data that isn't experience or education)
     $('[data-category=text][class=block]').children('.block-inner').children('.html-content').each(function (index, infoDiv) {
       $infoDiv = $(infoDiv);
-      infoString+=" "+$infoDiv.text()
+
+      infoString+=$infoDiv.text()+ " "
     })
 
     jobTitle = cleanUp(jobTitle)
