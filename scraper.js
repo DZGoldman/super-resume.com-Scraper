@@ -5,6 +5,7 @@ var scraperFunctions = {
     var cleanUp=function (str) {
       var cleanStr
       cleanStr= str.toLowerCase();
+      cleanStr=JSON.stringify(cleanStr);
       //remove quotes
       cleanStr = cleanStr.replace(/['"]+/g, '');
       //remove excess whitespace
