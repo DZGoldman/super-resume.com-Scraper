@@ -5,8 +5,16 @@ var scraperFunctions = {
     var cleanUp=function (str) {
       var cleanStr
       cleanStr= str.toLowerCase();
+      //remove quotes
       cleanStr = cleanStr.replace(/['"]+/g, '');
+      //remove excess whitespace
       cleanStr = cleanStr.trim();
+      cleanStr = cleanStr.replace(/  /g, '');
+      //remove slashes
+      cleanStr = cleanStr.replace(/\\/g, '');
+      cleanStr = cleanStr.replace("\\", "");
+
+
       return cleanStr
     }
 

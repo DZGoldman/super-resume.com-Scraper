@@ -20,56 +20,67 @@ var getAllLinks = function() {
   });
   return linksOnThisPage
 };
-
 var allLinks = [];
 
-casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Computer+Programmer', function() {
-  allLinks = allLinks.concat(casper.evaluate(getAllLinks))
-});
-casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Computer+Support+Specialist', function() {
-  allLinks = allLinks.concat(casper.evaluate(getAllLinks))
-});
-casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Computer+Systems+Administrator', function() {
-  allLinks = allLinks.concat(casper.evaluate(getAllLinks))
-});
-casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Computer+Systems+Analyst', function() {
-  allLinks = allLinks.concat(casper.evaluate(getAllLinks))
-});
-casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Mobile+Application+Developer', function() {
-  allLinks = allLinks.concat(casper.evaluate(getAllLinks))
-});
-casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Game+Developer', function() {
-  allLinks = allLinks.concat(casper.evaluate(getAllLinks))
-});
-casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=IT+Project+Manager', function() {
-  allLinks = allLinks.concat(casper.evaluate(getAllLinks))
-});
-casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Information+Security+Analyst', function() {
-  allLinks = allLinks.concat(casper.evaluate(getAllLinks))
-});
-casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Mechanical+Engineer', function() {
-  allLinks = allLinks.concat(casper.evaluate(getAllLinks))
-});
-casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Mechanical+Engineer', function() {
-  allLinks = allLinks.concat(casper.evaluate(getAllLinks))
-});
-casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Mobile+Application+Developer', function() {
-  allLinks = allLinks.concat(casper.evaluate(getAllLinks))
-});
-casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=QA+Software+Tester', function() {
-  allLinks = allLinks.concat(casper.evaluate(getAllLinks))
-});
-casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Software+Developer', function() {
-  allLinks = allLinks.concat(casper.evaluate(getAllLinks))
-});
-casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Web+Developer', function() {
-  allLinks = allLinks.concat(casper.evaluate(getAllLinks))
-});
+var getAllLinksOnPage = function(url) {
+  casper.thenOpen(url)
+    .thenEvaluate(function() {
+      $('#search-left-inner').scrollTop(1000000);
+    }).wait(2500, function() {}).thenEvaluate(function() {
+      $('#search-left-inner').scrollTop(1000000);
+    }).wait(2500, function() {}).thenEvaluate(function() {
+      $('#search-left-inner').scrollTop(1000000);
+    }).wait(2500, function() {}).thenEvaluate(function() {
+      $('#search-left-inner').scrollTop(1000000);
+    }).wait(2500, function() {}).thenEvaluate(function() {
+      $('#search-left-inner').scrollTop(1000000);
+    }).wait(2500, function() {}).thenEvaluate(function() {
+      $('#search-left-inner').scrollTop(1000000);
+    }).wait(2500, function() {}).thenEvaluate(function() {
+      $('#search-left-inner').scrollTop(1000000);
+    }).wait(2500, function() {}).thenEvaluate(function() {
+      $('#search-left-inner').scrollTop(1000000);
+    }).wait(2500, function() {}).thenEvaluate(function() {
+      $('#search-left-inner').scrollTop(1000000);
+    }).wait(2500, function() {}).thenEvaluate(function() {
+      $('#search-left-inner').scrollTop(1000000);
+    }).wait(2500, function() {}).thenEvaluate(function() {
+      $('#search-left-inner').scrollTop(1000000);
+    }).wait(2500, function() {}).thenEvaluate(function() {
+      $('#search-left-inner').scrollTop(1000000);
+    }).wait(2500, function() {}).thenEvaluate(function() {
+      $('#search-left-inner').scrollTop(1000000);
+    }).wait(2500, function() {}).thenEvaluate(function() {
+      $('#search-left-inner').scrollTop(1000000);
+    }).wait(2500, function() {
+      var links = this.evaluate(getAllLinks);
+      allLinks = allLinks.concat(links)
+      //console.log(allLinks.length);
+
+    })
+}
+var prefix = 'http://www.super-resume.com/ResumeBuilder.jtp?query='
+
+getAllLinksOnPage(prefix +'Computer+Support+Specialist');
+getAllLinksOnPage(prefix+'Computer+Systems+Administrator');
+getAllLinksOnPage(prefix+'Computer+Systems+Analyst');
+getAllLinksOnPage(prefix+'Web+Developer');
+getAllLinksOnPage(prefix+'Game+Developer');
+getAllLinksOnPage(prefix+'Mobile+Application+Developer');
+getAllLinksOnPage(prefix+'IT+Project+Manager');
+getAllLinksOnPage(prefix+'Information+Security+Analyst');
+getAllLinksOnPage(prefix+'Mechanical+Engineer');
+getAllLinksOnPage(prefix+'QA+Software+Tester');
+getAllLinksOnPage(prefix+'Software+Developer');
+getAllLinksOnPage(prefix+'Computer+Programmer');
+getAllLinksOnPage(prefix+'Database+Administrator');
+
 
 
 casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Database+Administrator', function() {
-  allLinks = allLinks.concat(casper.evaluate(getAllLinks));
 
+
+  //console.log('cmon....', allLinks.length);
   var resumesArray = []
   console.log('var resumes = [');
 
@@ -84,7 +95,7 @@ casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Database+Ad
 
       console.log('experiences:', "[");
       var experiences = resume.experiences;
-      if (experiences.length==0) {
+      if (experiences.length == 0) {
         console.log(']');
       }
       experiences.forEach(function(exp, index) {
@@ -98,6 +109,7 @@ casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Database+Ad
       if (index == allLinks.length - 1) {
         console.log('}');
         console.log('];');
+
         console.log('');
 
         console.log("var mongoose = require('mongoose'); var ResumeData = require('./models/resume_data.js');")
@@ -118,6 +130,7 @@ casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Database+Ad
         console.log("console.info('%d resumedatas were successfully stored.', docs.length);")
         console.log("}")
         console.log("}")
+        console.log('/*');
 
 
       } else {
@@ -127,7 +140,7 @@ casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Database+Ad
     });
   })
 
-});
+ } );
 
 
 
