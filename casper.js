@@ -3,12 +3,9 @@ var Scraper = require('./scraper.js')
 
 //This generates a seed file in the console log window. No, like, literally.
 
-
-
 casper.start('http://www.super-resume.com/resume-examples/', function() {
   //this.echo(this.getTitle());
 });
-
 
 //function that gets all of the links on a given page
 var getAllLinks = function() {
@@ -22,65 +19,42 @@ var getAllLinks = function() {
 };
 var allLinks = [];
 
-var getAllLinksOnPage = function(url) {
-  casper.thenOpen(url)
-    .thenEvaluate(function() {
-      $('#search-left-inner').scrollTop(1000000);
-    }).wait(2500, function() {}).thenEvaluate(function() {
-      $('#search-left-inner').scrollTop(1000000);
-    }).wait(2500, function() {}).thenEvaluate(function() {
-      $('#search-left-inner').scrollTop(1000000);
-    }).wait(2500, function() {}).thenEvaluate(function() {
-      $('#search-left-inner').scrollTop(1000000);
-    }).wait(2500, function() {}).thenEvaluate(function() {
-      $('#search-left-inner').scrollTop(1000000);
-    }).wait(2500, function() {}).thenEvaluate(function() {
-      $('#search-left-inner').scrollTop(1000000);
-    }).wait(2500, function() {}).thenEvaluate(function() {
-      $('#search-left-inner').scrollTop(1000000);
-    }).wait(2500, function() {}).thenEvaluate(function() {
-      $('#search-left-inner').scrollTop(1000000);
-    }).wait(2500, function() {}).thenEvaluate(function() {
-      $('#search-left-inner').scrollTop(1000000);
-    }).wait(2500, function() {}).thenEvaluate(function() {
-      $('#search-left-inner').scrollTop(1000000);
-    }).wait(2500, function() {}).thenEvaluate(function() {
-      $('#search-left-inner').scrollTop(1000000);
-    }).wait(2500, function() {}).thenEvaluate(function() {
-      $('#search-left-inner').scrollTop(1000000);
-    }).wait(2500, function() {}).thenEvaluate(function() {
-      $('#search-left-inner').scrollTop(1000000);
-    }).wait(2500, function() {}).thenEvaluate(function() {
-      $('#search-left-inner').scrollTop(1000000);
-    }).wait(2500, function() {
+//scroller
+var scrollDown = function() {
+  $('#search-left-inner').scrollTop(1000000);
+};
+
+var loadAllLinksOnPage = function(category) {
+  var prefix = 'http://www.super-resume.com/ResumeBuilder.jtp?query='
+  casper.thenOpen(prefix+category)
+    .thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {
       var links = this.evaluate(getAllLinks);
       allLinks = allLinks.concat(links)
-      //console.log(allLinks.length);
-
     })
 }
-var prefix = 'http://www.super-resume.com/ResumeBuilder.jtp?query='
 
-getAllLinksOnPage(prefix +'Computer+Support+Specialist');
-getAllLinksOnPage(prefix+'Computer+Systems+Administrator');
-getAllLinksOnPage(prefix+'Computer+Systems+Analyst');
-getAllLinksOnPage(prefix+'Web+Developer');
-getAllLinksOnPage(prefix+'Game+Developer');
-getAllLinksOnPage(prefix+'Mobile+Application+Developer');
-getAllLinksOnPage(prefix+'IT+Project+Manager');
-getAllLinksOnPage(prefix+'Information+Security+Analyst');
-getAllLinksOnPage(prefix+'Mechanical+Engineer');
-getAllLinksOnPage(prefix+'QA+Software+Tester');
-getAllLinksOnPage(prefix+'Software+Developer');
-getAllLinksOnPage(prefix+'Computer+Programmer');
-getAllLinksOnPage(prefix+'Database+Administrator');
+var categoriesArray =[ 'Computer+Support+Specialist','Computer+Systems+Administrator','Computer+Systems+Analyst','Web+Developer','Game+Developer','Mobile+Application+Developer','IT+Project+Manager','Information+Security+Analyst','Mechanical+Engineer','QA+Software+Tester','Software+Developer','Computer+Programmer','Database+Administrator']
 
-
+categoriesArray.forEach(function (category) {
+loadAllLinksOnPage(category)
+})
 
 casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Database+Administrator', function() {
 
-
-  //console.log('cmon....', allLinks.length);
   var resumesArray = []
   console.log('var resumes = [');
 
@@ -137,7 +111,7 @@ casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Database+Ad
     });
   })
 
- } );
+});
 
 
 
