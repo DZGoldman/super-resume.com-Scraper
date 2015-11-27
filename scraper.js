@@ -52,9 +52,7 @@ var scraperFunctions = {
     resume.experiences = experienceArray
 
     // //NOTE: does that single quote thing work? these are in the wrong scope
-    // console.log('title:', "'"+resume.title+ "',");
-    // console.log('summary:', "'"+resume.summary+"',");
-    // console.log('experiences:', "'"+resume.experiences+"',");
+    
 
      return resume
    }
