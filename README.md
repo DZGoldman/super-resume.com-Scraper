@@ -8,7 +8,7 @@ http://www.super-resume.com/resume-examples/
 
 ###  Instructions
 
-##### Instalation
+##### Installation
 Clone this repo locally and enter the scraper_test directory.
 In the console, run:
 ```console
@@ -42,4 +42,4 @@ Three Steps:
 - Refactor/DRY scrolling as a recursive function, with the option of scrolling until the bottom of the page is reached.
 - DRY up catagory links, and perhaps move them into the scraper function page.
 - Comment code more.
-- Set up package JSON? 
+- Set up package JSON?
