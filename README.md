@@ -32,14 +32,15 @@ Save the console output as 'seed.js', or whatever you please, and viola, you've 
 Three Steps:
 
 #### Step 1: Gathering Links
-
+explain
 #### Step 2: Scraping Each Resume
-
+explain
 #### Step 3: Outputting the Data
-
+explain
 
 ### To Do
 - Refactor/DRY scrolling as a recursive function, with the option of scrolling until the bottom of the page is reached.
 - DRY up catagory links, and perhaps move them into the scraper function page.
 - Comment code more.
 - Set up package JSON?
+- Fix node modules on master branch
