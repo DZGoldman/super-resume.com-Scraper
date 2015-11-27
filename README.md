@@ -11,6 +11,7 @@ http://www.super-resume.com/resume-examples/
 - phantomjs
 - phantom
 - Javascript/Jquery
+- Patience/Obstanance
 
 ###  Instructions
 
@@ -24,6 +25,7 @@ and
 ```console
 npm install -g phantomjs casperjs
 ```
+ **Note: this is the reccomended configuration, though it may not properly install on some operation systems. See the phantomjs and casperjs documentation for other installation options.* *
 
 ##### Running
 Running
@@ -44,7 +46,7 @@ As you can see, the page loads with 20 resume links available in the sidebar, an
 #### Step 2: Scraping Each Resume
 The app enters each url one by one. Within the environment of each page, the desired data - job title, experiences, and other info - are scraped, cleaned up (put in clean string form, without any extra white space or problem characters) and put into a resume object.
 #### Step 3: Saving the Data
-This posed an odd problem; the obvious way of doing this would be to simply store each resume into a database upon scraping; however, while we were in production we didn't have direct access to our database, so we decided it'd be safer to store the data in a seed file. CasperJs, however, does not run within a node app, so other methods of outputting the data weren't available. What we decided was to create the seed file itself in the bash console window, which is to say the desired data structure (an array of resume objects, with keys of strings and arrays) was recreated by console logging the data inside the approriate syntax; the console window can then be saved as a .js file, and that file itself is the seed file. You say strange, I say clever, meet you halfway? 
+This posed an odd problem; the obvious way of doing this would be to simply store each resume into a database upon scraping; however, while we were in production we didn't have direct access to our database, so we decided it'd be safer to store the data in a seed file. CasperJs, however, does not run within a node app, so other methods of outputting the data weren't available. What we decided was to create the seed file itself in the bash console window, which is to say the desired data structure (an array of resume objects, with keys of strings and arrays) was recreated by console logging the data inside the approriate syntax; the console window can then be saved as a .js file, and that file *itself* is the seed file. You say strange, I say clever, meet you halfway?
 
 ### To Do
 - Refactor/DRY scrolling as a recursive function, with the option of scrolling until the bottom of the page is reached.
