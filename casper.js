@@ -69,15 +69,22 @@ casper.thenOpen('http://www.super-resume.com/ResumeBuilder.jtp?query=Database+Ad
     //enter each url
 
     casper.thenOpen(link, function() {
-      console.log('opened a new url');
       var resume = casper.evaluate(Scraper.resumeScraper);
 
       resumesArray.push(resume);
+
+      if (index==allLinks.length-1) {
+        console.log('got all the resumes');
+        // save resumesArray
+
+        fs.write('resumestest.js', 'module.exports=', 'w')
+        fs.write('resumestest.js', JSON.stringify(resumesArray), 'a')
+
+      }
+
     });
   })
 
-  // save resumesArray
-  fs.write(resumestest, resumesArray, 'w')
 
 });
 

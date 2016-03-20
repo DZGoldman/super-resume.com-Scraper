@@ -8,6 +8,8 @@ var scraperFunctions = {
       cleanStr=JSON.stringify(cleanStr);
       //remove quotes
       cleanStr = cleanStr.replace(/['"]+/g, '');
+
+
       //remove excess whitespace
       cleanStr = cleanStr.trim();
       cleanStr = cleanStr.replace(/  /g, '');
@@ -52,7 +54,7 @@ var scraperFunctions = {
     resume.experiences = experienceArray
 
     // //NOTE: does that single quote thing work? these are in the wrong scope
-    
+
 
      return resume
    }
