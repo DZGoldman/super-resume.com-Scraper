@@ -1,3 +1,3 @@
 var resumes = require('./resumestest.js')
 
-console.log(resumes.length);
+console.log(resumes[0]);

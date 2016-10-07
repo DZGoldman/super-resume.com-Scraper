@@ -2,7 +2,7 @@ var casper = require('casper').create();
 var Scraper = require('./scraper.js');
 var fs = require('fs')
 
-//This generates a seed file in the console log window. No, like, literally.
+//This generates a seed file.
 
 casper.start('http://www.super-resume.com/resume-examples/', function() {
   //this.echo(this.getTitle());
@@ -30,27 +30,29 @@ var loadAllLinksOnPage = function(category) {
   var prefix = 'http://www.super-resume.com/ResumeBuilder.jtp?query='
   casper.thenOpen(prefix+category)
     .thenEvaluate(scrollDown)
+    // var counter=0;
+      .wait(2500, function() {}).thenEvaluate(scrollDown)
 
     .wait(2500, function() {}).thenEvaluate(scrollDown)
-    // .wait(2500, function() {}).thenEvaluate(scrollDown)
-    // .wait(2500, function() {}).thenEvaluate(scrollDown)
-    // .wait(2500, function() {}).thenEvaluate(scrollDown)
-    // .wait(2500, function() {}).thenEvaluate(scrollDown)
-    // .wait(2500, function() {}).thenEvaluate(scrollDown)
-    // .wait(2500, function() {}).thenEvaluate(scrollDown)
-    // .wait(2500, function() {}).thenEvaluate(scrollDown)
-    // .wait(2500, function() {}).thenEvaluate(scrollDown)
-    // .wait(2500, function() {}).thenEvaluate(scrollDown)
-    // .wait(2500, function() {}).thenEvaluate(scrollDown)
-    // .wait(2500, function() {}).thenEvaluate(scrollDown)
-    // .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
+    .wait(2500, function() {}).thenEvaluate(scrollDown)
     .wait(2500, function() {
       var links = this.evaluate(getAllLinks);
       allLinks = allLinks.concat(links)
     })
 }
 
-var categoriesArray =[ 'Computer+Support+Specialist','Computer+Systems+Administrator'
+var categoriesArray =[ 'Computer+Support+Specialist'
+// ,'Computer+Systems+Administrator'
 //
 // ,'Computer+Systems+Analyst','Web+Developer','Game+Developer','Mobile+Application+Developer','IT+Project+Manager','Information+Security+Analyst','Mechanical+Engineer','QA+Software+Tester','Software+Developer','Computer+Programmer','Database+Administrator'
 ]
